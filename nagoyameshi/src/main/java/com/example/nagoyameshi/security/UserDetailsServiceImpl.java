@@ -22,16 +22,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 	@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(email);
-        if (member == null) {
-            throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
-        }
-        
-        String memberRoleName = member.getRole().getName();
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(memberRoleName));
+		try {
+			System.out.println("loadUserByUsername:" + email);
 
-        return new UserDetailsImpl(member, authorities);
-    }
+			Member member = memberRepository.findByEmail(email);
+			if (member == null) {
+				throw new UsernameNotFoundException("ユーザーが見つかりませんでした。(target member does not found.)");
+			}
+	    
+			String memberRoleName = member.getRole().getName();
+			System.out.println("memberRoleName" + memberRoleName);
+			Collection<GrantedAuthority> authorities = new ArrayList<>();
+			authorities.add(new SimpleGrantedAuthority(memberRoleName));
 
+		    return new UserDetailsImpl(member, authorities);
+		} catch (UsernameNotFoundException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
+		}
+	}
 }
