@@ -54,6 +54,27 @@ public class MemberService {
 		
 		memberRepository.save(member);
 	}
+	
+	@Transactional
+	public void createSubscription(Member member) {
+		Role role = roleRepository.findByName("ROLE_PAID_MEMBER");
+		if(role == null) {
+			throw new RuntimeException("登録できていません");
+		}
+		member.setRole(role);
+		memberRepository.save(member);
+		
+	}
+	
+	@Transactional
+	public void cancelSubscription(Member member) {
+		Role role = roleRepository.findByName("ROLE_FREE_MEMBER");
+		if(role == null) {
+			throw new RuntimeException("登録削除できていません");
+		}
+		member.setRole(role);
+		memberRepository.save(member);
+	}
 	//メールアドレスが登録済みかどうかをチェックする
 	public boolean isEmailRegistered(String email) {
 		Member member = memberRepository.findByEmail(email);

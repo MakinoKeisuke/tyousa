@@ -37,30 +37,30 @@
 								<div class="card-body">
 									<form method="get" th:action="@{/shopes}" class="w-100">
 										<div class="form-group mb-3">
-											<select class="form-control form-select" name="categoryName">
+											<select class="form-control form-select" name="category">
 												<option value="" hidden>選択してください</option>
 												<optgroup label="麺料理">
-													<option value="ラーメン" th:selected="${categoryName == 'ラーメン'}">ラーメン</option>
-													<option value="うどん" th:selected="${categoryName == 'うどん'}">うどん</option>
+													<option value="1" th:selected="${category == 'ラーメン'}">ラーメン</option>
+													<option value="12" th:selected="${category == 'うどん'}">うどん</option>
 												</optgroup>
 												<optgroup label="日本料理">
-													<option value="居酒屋" th:selected="${categoryName == '居酒屋'}">居酒屋</option>
-													<option value="寿司" th:selected="${categoryName == '寿司'}">寿司</option>
-													<option value="和食" th:selected="${categoryName == '和食'}">和食</option>
-													<option value="ひつまぶし" th:selected="${categoryName == 'ひつまぶし'}">ひつまぶし</option>
-													<option value="揚げ物" th:selected="${categoryName == '揚げ物'}">揚げ物</option>
+													<option value="2" th:selected="${category == '居酒屋'}">居酒屋</option>
+													<option value="4" th:selected="${category == '寿司'}">寿司</option>
+													<option value="10" th:selected="${category == '和食'}">和食</option>
+													<option value="13" th:selected="${category == 'ひつまぶし'}">ひつまぶし</option>
+													<option value="15" th:selected="${category == '揚げ物'}">揚げ物</option>
 												</optgroup>
 												<optgroup label="海外料理">
-													<option value="イタリア料理" th:selected="${categoryName == 'イタリア料理'}">イタリア料理</option>
-													<option value="フランス料理" th:selected="${categoryName == 'フランス料理'}">フランス料理</option>
-													<option value="中華料理" th:selected="${categoryName == '中華料理'}">中華料理</option>
-													<option value="カレー" th:selected="${categoryName == 'カレー'}">カレー</option>
+													<option value="5" th:selected="${category == 'イタリア料理'}">イタリア料理</option>
+													<option value="6" th:selected="${category == 'フランス料理'}">フランス料理</option>
+													<option value="7" th:selected="${category == '中華料理'}">中華料理</option>
+													<option value="14" th:selected="${category == 'カレー'}">カレー</option>
 												</optgroup>
 												<optgroup label="肉料理">
-													<option value="焼肉" th:selected="${categoryName == '焼肉'}">焼肉</option>
-													<option value="しゃぶしゃぶ" th:selected="${categoryName == 'しゃぶしゃぶ'}">しゃぶしゃぶ</option>
-													<option value="焼き鳥" th:selected="${categoryName == '焼き鳥'}">焼き鳥</option>
-													<option value="ステーキハウス" th:selected="${categoryName == 'ステーキハウス'}">ステーキハウス</option>
+													<option value="3" th:selected="${category == '焼肉'}">焼肉</option>
+													<option value="8" th:selected="${category == 'しゃぶしゃぶ'}">しゃぶしゃぶ</option>
+													<option value="9" th:selected="${category == '焼き鳥'}">焼き鳥</option>
+													<option value="11" th:selected="${category == 'ステーキハウス'}">ステーキハウス</option>
 												</optgroup>
 											</select>
 										</div>
@@ -105,6 +105,16 @@
 							<div class="d-flex justify-content-between flex-wrap">
 								<p th:if="${shopePage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果:' + shopePage.getTotalElements() + '件' + '(' + (shopePage.getNumber() + 1) + ' / ' + shopePage.getTotalPages() + ' ページ) '}"></p>
 								<p th:unless="${shopePage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果:'  + shopePage.getTotalElements() + '件'}"></p>
+								
+								<form method="get" th:action="@{/shopes}" class="mb-3 nagoyameshi-sort-box">
+									<input th:if="${keyword}" type="hidden" name="keyword" th:value="${keyword}">
+									<input th:if="${lowPrice}" type="hidden" name="lowPrice" th:value="${lowPrice}">
+									<input th:if="${heighPrice}" type="hidden" name="heighPrice" th:value="${heighPrice}">
+									<select class="form-select form-select-sm" name="order" onchange="this.form.submit();">
+										<option value="createdAtDesc" th:selected="${order == 'createdAtDesc' || order == null}">新着順</option>
+										<option value="priceAsc" th:selected="${order == 'priceAsc'}">店舗料金が安い順</option>
+									</select>
+								</form>
 							</div>
 						
 							<div class="mb-3" th:each="shope : ${shopePage}">
@@ -146,15 +156,15 @@
 									<ul class="pagination">
 										<li class="page-item">
 											<span th:if="${shopePage.isFirst()}" class="page-link disabled">前</span>
-											<a th:unless="${shopePage.isFirst()}" th:href="@{/shopes(page = ${shopePage.getNumber() - 1}, keyword = ${keyword}, category = ${categoryName}, heighPrice = ${heighPrice})}" class="page-link nagoyameshi-page-link">前</a>
+											<a th:unless="${shopePage.isFirst()}" th:href="@{/shopes(page = ${shopePage.getNumber() - 1}, keyword = ${keyword}, category = ${category}, lowPrice = ${lowPrice}, heighPrice = ${heighPrice}, order = ${order})}" class="page-link nagoyameshi-page-link">前</a>
 										</li>
 										<li th:each="i : ${#numbers.sequence(0, shopePage.getTotalPages() - 1)}" class="page-item">
 											<span th:if="${i == shopePage.getNumber()}"	class="page-link active nagoyameshi-active" th:text="${i + 1}"></span>
-											<a th:unless="${i == shopePage.getNumber()}" th:href="@{/shopes(page = ${i}, keyword = ${keyword}, category = ${categoryName}, heighPrice = ${heighPrice})}" class="page-link nagoyameshi-page-link" th:text="${i + 1}"></a>
+											<a th:unless="${i == shopePage.getNumber()}" th:href="@{/shopes(page = ${i}, keyword = ${keyword}, category = ${category}, lowPrice = ${lowPrice}, heighPrice = ${heighPrice}, order = ${order})}" class="page-link nagoyameshi-page-link" th:text="${i + 1}"></a>
 										</li>
 										<li class="page-item">
 											<span th:if="${shopePage.isLast()}" class="page-link disabled">次</span>
-											<a th:unless="${shopePage.isLast()}" th:href="@{/shopes(page = ${shopePage.getNumber() + 1}, keyword = ${keyword}, category = ${categoryName}, heighPrice = ${heighPrice})}" class="page-link nagoyameshi-page-link">前</a>
+											<a th:unless="${shopePage.isLast()}" th:href="@{/shopes(page = ${shopePage.getNumber() + 1}, keyword = ${keyword}, category = ${category}, lowPrice = ${lowPrice}, heighPrice = ${heighPrice}, order = ${order})}" class="page-link nagoyameshi-page-link">前</a>
 										</li>
 									</ul>
 								</nav>

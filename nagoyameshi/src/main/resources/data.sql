@@ -81,10 +81,23 @@ INSERT IGNORE INTO members (id, name, furigana, postal_code, address, phone_numb
 INSERT IGNORE INTO members (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (11, '佐藤 秋美', 'サトウ アキミ', '606-8235', '京都府京都市左京区田中西春菜町X-XX-XX', '090-1234-5678', 'akimi.samurai@example.com', 'password', 1, false);
 INSERT IGNORE INTO members (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (12, '佐藤 信平', 'サトウ シンペイ', '673-1324', '兵庫県加東市新定X-XX-XX', '090-1234-5678', 'shinpei.samurai@example.com', 'password', 1, false);
 
+-- reservationsテーブル --
 
-
-
-
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (1, 1, 1,'2024-04-02','18:00',3);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (2, 2, 1,'2024-04-05','12:00',2);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (3, 3, 1,'2024-04-08','19:00',4);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (4, 4, 1,'2024-04-11','13:00',2);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (5, 5, 1,'2024-04-14','20:00',5);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (6, 6, 1,'2024-04-17','19:00',3);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (7, 7, 1,'2024-04-20','17:00',4);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (8, 8, 1,'2024-04-23','19:00',6);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (9, 9, 1,'2024-04-26','18:00',3);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (10, 10, 1,'2024-04-29','18:00',2);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (11, 11, 1,'2024-05-02','19:00',3);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (12, 12, 1,'2024-05-05','19:00',6);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (13, 13, 1,'2024-05-08','20:00',4);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (14, 14, 1,'2024-05-11','19:00',5);
+INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (15, 15, 1,'2024-05-14','17:00',2);
 
 
 
