@@ -64,14 +64,14 @@ public class ReservationController {
 		}
 		
 		try {
-		// 追加部分: ReservationRegisterFormを作成
-		
+			// 追加部分: ReservationRegisterFormを作成
+			
 			ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(
-					shope.getId(), member.getId(), reservationInputForm.getReservationDate().toString(),
-					reservationInputForm.getReservationTime().toString(),
-					reservationInputForm.getNumberOfPeople()
-			);
-        	reservationService.create(reservationRegisterForm);
+						shope.getId(), member.getId(), reservationInputForm.getReservationDate().toString(),
+						reservationInputForm.getReservationTime().toString(),
+						reservationInputForm.getNumberOfPeople()
+				);
+	        reservationService.create(reservationRegisterForm);
 	    } catch (IllegalArgumentException e) {
 	         model.addAttribute("shope", shope);
 	         model.addAttribute("errorMessage", e.getMessage());
@@ -110,3 +110,4 @@ public class ReservationController {
 		return "redirect:/reservations?reserved";
 	}
 }
+

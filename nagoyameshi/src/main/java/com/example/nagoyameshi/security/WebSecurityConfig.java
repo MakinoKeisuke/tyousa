@@ -17,6 +17,7 @@ public class WebSecurityConfig {
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+        	.csrf(csrf -> csrf.disable()) // 必要に応じて有効化
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/shopes","/shopes/{id}").permitAll() // すべてのユーザーにアクセスを許可するURL
                 .requestMatchers("/admin/**").hasRole("ADMIN")    // 管理者にのみアクセスを許可するURL
@@ -32,6 +33,11 @@ public class WebSecurityConfig {
             .logout((logout) -> logout
                 .logoutSuccessUrl("/?loggedOut")    // ログアウト成功時のリダイレクト先URL
                 .permitAll()
+            )
+            .sessionManagement(session -> session
+                    .invalidSessionUrl("/login?invalidSession") // 無効なセッション時のリダイレクト先URL
+                    .maximumSessions(1)							// 同時に許可される最大セッション数
+                    .expiredUrl("/login?sessionExpired")		 // セッションが切れた場合のリダイレクト先URL
             );
 
         return http.build();

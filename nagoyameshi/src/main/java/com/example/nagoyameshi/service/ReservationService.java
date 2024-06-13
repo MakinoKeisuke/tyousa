@@ -6,8 +6,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.stereotype.Service;
 
@@ -71,7 +73,9 @@ public class ReservationService {
 	public boolean isHoliday(LocalDate reservationDate, String holidays) {
         List<String> holidayList = Arrays.asList(holidays.split(","));
         DayOfWeek dayOfWeek = reservationDate.getDayOfWeek();
+        String dayOfWeekJapanese = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.JAPANESE);
         String dayOfWeekStr = dayOfWeek.toString().substring(0, 1).toUpperCase() + dayOfWeek.toString().substring(1).toLowerCase(); // "MONDAY" -> "Monday"
-        return holidayList.contains(dayOfWeekStr);
+        return holidayList.contains(dayOfWeekJapanese) || holidayList.contains(dayOfWeekStr);
+       
     }
 }
