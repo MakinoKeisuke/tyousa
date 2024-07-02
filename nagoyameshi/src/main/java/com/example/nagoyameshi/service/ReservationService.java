@@ -78,4 +78,20 @@ public class ReservationService {
         return holidayList.contains(dayOfWeekJapanese) || holidayList.contains(dayOfWeekStr);
        
     }
+	
+	public void validateReservation(ReservationRegisterForm reservationRegisterForm) {
+        Shope shope = shopeRepository.getReferenceById(reservationRegisterForm.getShopeId());
+        LocalDate reservationDate = LocalDate.parse(reservationRegisterForm.getReservationDate());
+        LocalTime reservationTime = LocalTime.parse(reservationRegisterForm.getReservationTime(), DateTimeFormatter.ofPattern("HH:mm"));
+
+        if (isHoliday(reservationDate, shope.getHoliday())) {
+            throw new IllegalArgumentException("予約日は店舗の定休日です");
+        }
+        if (!isWithinOpenTime(reservationTime, shope.getOpenTime())) {
+            throw new IllegalArgumentException("予約時間は店舗の営業開始時間より前です。");
+        }
+        if (!isWithinCloseTime(reservationTime, shope.getCloseTime())) {
+            throw new IllegalArgumentException("予約時間は店舗の営業終了時間の後です。");
+        }
+    }
 }

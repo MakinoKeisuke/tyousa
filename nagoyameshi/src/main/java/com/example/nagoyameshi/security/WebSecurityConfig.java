@@ -19,7 +19,7 @@ public class WebSecurityConfig {
         http
         	.csrf(csrf -> csrf.disable()) // 必要に応じて有効化
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/shopes","/shopes/{id}").permitAll() // すべてのユーザーにアクセスを許可するURL
+                .requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/shopes","/shopes/{id}","/shopes/{id}/reviews").permitAll() // すべてのユーザーにアクセスを許可するURL
                 .requestMatchers("/admin/**").hasRole("ADMIN")    // 管理者にのみアクセスを許可するURL
                 .anyRequest().authenticated()                    // 上記以外のURLはログインが必要 (会員、有料会員、または管理者のどちらでもOK)
             )

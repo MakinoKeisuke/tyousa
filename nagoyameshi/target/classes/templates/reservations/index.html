@@ -25,9 +25,10 @@
 							
 							<h1 class="mb-3 text-center">予約一覧</h1>
 							
-							<div th:if="${param.reserved}" class="alert alert-info">
+							<div th:if="${reserved}" class="alert alert-info">
 								予約が完了しました。
 							</div>
+							
 							
 							<table class="table">
 								<thead>
@@ -72,12 +73,12 @@
 						</div>
 					</div>
 				</div>
-			</main>
+    		</main>
 			
 			<!-- フッター -->
 			<div th:replace="~{fragment :: footer}"></div>
 		</div>
-		
+    	
 		<div th:replace="~{fragment :: scripts}"></div>
 	</body>	
 </html>

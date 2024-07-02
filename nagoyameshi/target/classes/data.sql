@@ -99,8 +99,31 @@ INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, rese
 INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (14, 14, 1,'2024-05-11','19:00',5);
 INSERT IGNORE INTO reservations (id, shope_id, member_id, reservation_date, reservation_time, number_of_people) VALUES (15, 15, 1,'2024-05-14','17:00',2);
 
+-- reviewsテーブル --
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (1, 1, 1, 5, 'とてもおいしかったです。また利用したいです。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (2, 1, 2, 5, '設備がしっかり整って、すごしやすかったです。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (3, 1, 3, 4, 'お店の雰囲気がよく、楽しい時間を過ごすことができました。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (4, 1, 4, 3, '香ばしく、おいしかったのですが、味が少し薄かったです。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (5, 1, 5, 4, 'おいしかったです。次回もまたご利用したいです。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (6, 1, 6, 3, '料理はおいしかったですが、メニューの種類をもう少し増やしていただきたかったです。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (7, 1, 7, 5, '接客態度もよく、大満足です。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (8, 1, 8, 2, '味はおいしかったですが、お料理の量を多くしてほしかったです');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (9, 1, 9, 4, '店内の聡明感が素晴らしく、店員さんが親切でした。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (10, 1, 10, 5, '料理もおいしくて、ゆったりとした時間を過ごすことができました。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (11, 1, 11, 5, '料理が繊細で、他のお店にはない最高の料理でした。');
+INSERT IGNORE INTO reviews (id, shope_id, member_id, score, content) VALUES (12, 1, 12, 3, '味は悪くないですが、メニューを豊富にしてほしかったです。');
 
-
-
-
+-- favoritesテーブル --
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (1, 1, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (2, 2, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (3, 3, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (4, 4, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (5, 5, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (6, 6, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (7, 7, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (8, 8, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (9, 9, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (10, 10, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (11, 11, 1);
+INSERT IGNORE INTO favorites (id, shope_id, member_id) VALUES (12, 12, 1);
 

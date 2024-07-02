@@ -71,14 +71,15 @@ public class ReservationController {
 						reservationInputForm.getReservationTime().toString(),
 						reservationInputForm.getNumberOfPeople()
 				);
-	        reservationService.create(reservationRegisterForm);
-	    } catch (IllegalArgumentException e) {
+			reservationService.validateReservation(reservationRegisterForm);
+			// 一旦予約作成を行わずに確認画面へリダイレクト
+            redirectAttributes.addFlashAttribute("reservationRegisterForm", reservationRegisterForm);
+            redirectAttributes.addFlashAttribute("reservationInputForm", reservationInputForm); // 確認画面に必要な場合
+        } catch (IllegalArgumentException e) {
 	         model.addAttribute("shope", shope);
 	         model.addAttribute("errorMessage", e.getMessage());
 	         return "shopes/show";
 	    }
-		
-		redirectAttributes.addFlashAttribute("reservationInputForm", reservationInputForm);
 		
 		return "redirect:/shopes/{id}/reservations/confirm";
 	}
@@ -104,10 +105,18 @@ public class ReservationController {
 	}
 	
 	@PostMapping("/shopes/{id}/reservations/create")
-	public String create(@ModelAttribute ReservationRegisterForm  reservationRegisterForm) {
-		reservationService.create(reservationRegisterForm);
+	public String create(@ModelAttribute ReservationRegisterForm  reservationRegisterForm, RedirectAttributes redirectAttributes,Model model) {
+		 try {
+	            reservationService.create(reservationRegisterForm);
+	        } catch (IllegalArgumentException e) {
+	            Shope shope = shopeRepository.getReferenceById(reservationRegisterForm.getShopeId());
+	            model.addAttribute("shope", shope);
+	            model.addAttribute("errorMessage", e.getMessage());
+	            return "reservations/confirm";
+	        }
 		
-		return "redirect:/reservations?reserved";
+		redirectAttributes.addFlashAttribute("reserved", true);
+		return "redirect:/reservations";
 	}
 }
 
