@@ -28,6 +28,17 @@ public class SubscriptionController {
 		return "subscription/cancel";
 	}
 	
+	@GetMapping("/create")
+	public String createMenyu(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model, RedirectAttributes redirectAttributes) {
+		Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
+		memberService.createSubscription(member);
+		
+		model.addAttribute("successMessage", "有料会員を登録しました、");
+		
+		return "subscription/create";
+		
+	}
+	
 	@PostMapping("/create")
 	public String create(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model, RedirectAttributes redirectAttributes) {
 		Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
@@ -39,6 +50,16 @@ public class SubscriptionController {
 		
 	}
 	
+	@GetMapping("/delete")
+	public String deleteMenyu(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model, RedirectAttributes redirectAttributes) {
+		//Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
+		//memberService.cancelSubscription(member);
+		
+		//model.addAttribute("successMessage", "有料会員を削除しました");
+		
+		return "subscription/cancel";
+	}
+	
 	@PostMapping("/delete")
 	public String delete(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model, RedirectAttributes redirectAttributes) {
 		Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
@@ -46,7 +67,7 @@ public class SubscriptionController {
 		
 		model.addAttribute("successMessage", "有料会員を削除しました");
 		
-		return "redirect:/";
+		return "../index";
 	}
 	
 	
