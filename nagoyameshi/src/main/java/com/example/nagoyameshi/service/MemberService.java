@@ -1,5 +1,9 @@
 package com.example.nagoyameshi.service;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +68,11 @@ public class MemberService {
 		member.setRole(role);
 		memberRepository.save(member);
 		
+		 // Spring Security コンテキストに新しいロールを反映
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), AuthorityUtils.createAuthorityList("ROLE_PAID_MEMBER"));
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+		
 	}
 	
 	@Transactional
@@ -74,6 +83,11 @@ public class MemberService {
 		}
 		member.setRole(role);
 		memberRepository.save(member);
+		
+		// Spring Security コンテキストに新しいロールを反映
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), AuthorityUtils.createAuthorityList("ROLE_FREE_MEMBER"));
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
 	}
 	//メールアドレスが登録済みかどうかをチェックする
 	public boolean isEmailRegistered(String email) {

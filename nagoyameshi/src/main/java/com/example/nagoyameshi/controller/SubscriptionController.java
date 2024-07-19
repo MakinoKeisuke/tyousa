@@ -44,7 +44,7 @@ public class SubscriptionController {
 		Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
 		memberService.createSubscription(member);
 		
-		model.addAttribute("successMessage", "有料会員を登録しました、");
+		redirectAttributes.addFlashAttribute("successMessage", "有料会員を登録しました、");
 		
 		return "redirect:/";
 		
@@ -65,10 +65,11 @@ public class SubscriptionController {
 		Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
 		memberService.cancelSubscription(member);
 		
-		model.addAttribute("successMessage", "有料会員を削除しました");
+		redirectAttributes.addFlashAttribute("successMessage", "有料会員を削除しました");
 		
-		return "../index";
+		return "redirect:/";
 	}
 	
+
 	
 }

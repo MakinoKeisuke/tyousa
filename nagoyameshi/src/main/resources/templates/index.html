@@ -16,12 +16,20 @@
              
              <main>
                  <div class="container pt-4 pb-5 nagoyameshi-container">
-                     <div th:if="${param.loggedIn}" class="alert alert-info">
+                     <div th:if="${param.loggedIn}" class="alert alert-info" sec:authorize="hasRole('ROLE_FREE_MEMBER')">
                          ログインしました。
                      </div>  
                      
                      <div th:if="${param.loggedOut}" class="alert alert-info">
                          ログアウトしました。
+                     </div>
+                     
+                     <div th:if="${param.loggedIn}" class="alert alert-info" sec:authorize="hasRole('ROLE_PAID_MEMBER')">
+                         有料会員でログインしました。
+                     </div>
+                     
+                      <div th:if="${param.loggedOut}" class="alert alert-info" sec:authorize="hasRole('ROLE_PAID_MEMBER')">
+                         有料会員を解約しました。
                      </div>
                      
                      <div th:if="${successMessage}" class="alert alert-info">
@@ -111,5 +119,14 @@
 		</div>
 		
 		<div th:replace="~{fragment :: scripts}"></div>
+		<!-- この追記はSTRIPEの記述です -->
+		
+		<script src="https://js.stripe.com/v3/"></script>
+		<button id="checkout-button">サブスクリプションを開始</button>
+
+		<script type="text/javascript">
+  		// スクリプトタグ内にてJavaScriptコードを記述します
+		</script>
+		
      </body>
 </html>
